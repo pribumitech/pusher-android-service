@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.pribumitech.pusherapp.utils.PusherOdk;
 import com.pusher.client.channel.PrivateChannel;
@@ -25,14 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JSONObject object = new JSONObject();
-                try {
-                    object.put("text", "Hellooo World!");
-                    PrivateChannel privateChannel = PusherOdk.getInstance().PusherApp.getPrivateChannel("private-test-channel");
-                    privateChannel.trigger("client-test-event", object.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                Toast.makeText(LoginActivity.this, "Nothing Action", Toast.LENGTH_LONG).show();
             }
         });
 

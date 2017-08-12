@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.netStatus = (TextView)findViewById(R.id.net_status);
+        this.netStatus = (TextView) findViewById(R.id.net_status);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         this.mCompositeSubscription = new CompositeSubscription();
@@ -69,96 +69,14 @@ public class MainActivity extends AppCompatActivity
         filterInet.addCategory("com.pribumitech.pusherapp.MainActivity");
         this.registerReceiver(broadcastReceiver, filterInet);
 
-
-        Intent intent = new Intent(this, NotifBroadcastReceiver.class);
-        startService(intent);
-
-        /*BroadcastReceiver pusherReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if(intent.getAction().equalsIgnoreCase("customer_order")) {
-                    Bundle dd = intent.getExtras();
-                    String msg = dd.getString("message");
-                    Log.d("DAAAAAAAAAATAAA", msg);
-                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    v.vibrate(400);
-                }
-            }
-        };
-        final IntentFilter filter = new IntentFilter();
-        filter.addAction("customer_order");
-        filter.addCategory("com.pribumitech.pusherapp.MainActivity");
-        this.registerReceiver(pusherReceiver, filter);*/
-
-        /*final HttpAuthorizer authorizer = new HttpAuthorizer("http://pusher.app/pusherauth");
-        final PusherAndroidOptions options = new PusherAndroidOptions();
-        options.setAuthorizer(authorizer);
-        options.setEncrypted(true);
-        pusher = new PusherAndroid("7c1167c4c590503e5f67", options);*/
-
-        /*PusherOdk.getInstance().PusherApp.connect();
-
-        Channel channel = PusherOdk.getInstance()
-                .PusherApp.subscribePrivate("private-test-channel",
-                new PrivateChannelEventListener() {
-            @Override
-            public void onAuthenticationFailure(String s, Exception e) {
-                Log.w("PUSHER", "Channel subscription authorization failed");
-            }
-
-            @Override
-            public void onSubscriptionSucceeded(String channelName) {
-                Log.w("PUSHER", "Channel subscription " + channelName);
-            }
-
-            @Override
-            public void onEvent(String s, String s2, String s3) {
-                Log.d("PUSHER", s + " " + "An event with name " + s2 + " was delivered!!" + " " + s3);
-            }
-        }, "client-test-event");*/
-
-        /*pusher.connect(new ConnectionEventListener() {
-            @Override
-            public void onConnectionStateChange(ConnectionStateChange connectionStateChange) {
-
-                *//*if (connectionStateChange.getCurrentState() == ConnectionState.CONNECTED) {
-
-                    Channel channel = pusher.subscribePrivate("private-test-channel", new PrivateChannelEventListener() {
-                        @Override
-                        public void onAuthenticationFailure(String s, Exception e) {
-                            Log.w("PUSHER", "Channel subscription authorization failed");
-                        }
-
-                        @Override
-                        public void onSubscriptionSucceeded(String channelName) {
-                            Log.w("PUSHER", "Channel subscription " + channelName);
-                        }
-
-                        @Override
-                        public void onEvent(String s, String s2, String s3) {
-                            Log.d("PUSHER", s + " " + "An event with name " + s2 + " was delivered!!" + " " + s3);
-                        }
-                    }, "client-test-event");
-
-                }*//*
-
-
-            }
-
-            @Override
-            public void onError(String s, String s1, Exception e) {
-
-            }
-        });*/
+        //Intent intent = new Intent(this, NotifBroadcastReceiver.class);
+        //startService(intent);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
             }
 
         });
@@ -180,46 +98,6 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-        }
-    }
-
-    private void submitEvent(){
-        //================ harus active kan setting allow client publish
-                /*PrivateChannel privateChannel = pusher.getPrivateChannel("private-test-channel");
-                privateChannel.trigger("client-test-event", object.toString());*/
-
-        JSONObject object = new JSONObject();
-
-        try {
-
-            object.put("text", "Hellooo World!");
-            Observable<String> requestData = RetrofitString.getInstance()
-                    .getApisServices()
-                    .postTrigger("private-test-channel", "client-test-event", object.toString());
-
-            mCompositeSubscription.add(requestData
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Subscriber<String>() {
-
-                        @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onNext(String s) {
-
-                        }
-                    }));
-
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 
@@ -251,17 +129,13 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        if (id == R.id.nav_login) {
+            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_send_msg) {
+            Intent i = new Intent(MainActivity.this, SendActivity.class);
+            startActivity(i);
+        } else if (id == R.id.nav_receive_msg) {
 
         }
 
@@ -298,7 +172,7 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onReceive(final Context context, final Intent intent) {
             final ConnectivityManager mgr =
-                    (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
             String connectionType = "";
 

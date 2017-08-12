@@ -34,20 +34,24 @@ public class ApplicationLoader extends Application {
         final WakefulBroadcastReceiver mReceiver = new NotifBroadcastReceiver();
         final IntentFilter filter = new IntentFilter();
         filter.addAction("customer_order");
-        filter.addCategory("com.pribumitech.pusherapp.MainActivity");
+        //filter.addCategory("com.pribumitech.pusherapp.MainActivity");
         applicationContext.registerReceiver(mReceiver, filter);
 
+        applicationContext.startService(new Intent(applicationContext, NotifBroadcastReceiver.class));
         applicationContext.startService(new Intent(applicationContext, BackgroundService.class));
 
         if (android.os.Build.VERSION.SDK_INT >= 19) {
+
+            PendingIntent pintent =
+                    PendingIntent.getService(applicationContext, 0, new Intent(applicationContext, NotifBroadcastReceiver.class), 0);
+            AlarmManager alarm = (AlarmManager) applicationContext.getSystemService(Context.ALARM_SERVICE);
+            alarm.cancel(pintent);
+
             PendingIntent pintent2 =
                     PendingIntent.getService(applicationContext, 0, new Intent(applicationContext, BackgroundService.class), 0);
             AlarmManager alarm2 = (AlarmManager) applicationContext.getSystemService(Context.ALARM_SERVICE);
             alarm2.cancel(pintent2);
         }
-
-        //startService(new Intent(this, BackgroundService.class));
-        Log.d("PUSHER", "OKEEEEEEEEEEEEEEEEEEEEEEEEE");
     }
 
 

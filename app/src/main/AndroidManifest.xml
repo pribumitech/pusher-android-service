@@ -11,17 +11,15 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
 
     <application
-        android:name="com.pribumitech.pusherapp.ApplicationLoader"
+        android:name=".ApplicationLoader"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -40,7 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".LoginActivity" />
 
         <receiver android:name=".NotifBroadcastReceiver">
             <intent-filter>
@@ -52,12 +50,12 @@
             android:name=".NotificationExtenderService"
             android:enabled="true"
             android:exported="false" />
-
         <service
             android:name=".BackgroundService"
             android:enabled="true"
             android:exported="false" />
 
+        <activity android:name=".SendActivity"></activity>
     </application>
 
 </manifest>

@@ -15,7 +15,6 @@ public class NotifBroadcastReceiver extends WakefulBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         ComponentName cn = new ComponentName(ApplicationLoader.applicationContext.getPackageName(), NotificationExtenderService.class.getName());
         startWakefulService(context, intent.setComponent(cn));
-        //setResultCode(Activity.RESULT_OK);
     }
 }
 

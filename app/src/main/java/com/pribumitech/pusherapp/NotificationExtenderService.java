@@ -21,20 +21,10 @@ public class NotificationExtenderService extends IntentService {
 
     //protected abstract boolean onNotificationProcessing(OSNotificationReceivedResult notification);
 
-    /*private static Resources contextResources = null;
-    private static Context currentContext = null;
-    private static String packageName = null;*/
-
     public NotificationExtenderService() {
         super("NotificationExtenderService");
         setIntentRedelivery(true);
     }
-
-    /*private static void setStatics(Context inContext) {
-        currentContext = inContext;
-        packageName = currentContext.getPackageName();
-        contextResources = currentContext.getResources();
-    }*/
 
     private void processIntent(Intent intent) {
 
@@ -55,10 +45,10 @@ public class NotificationExtenderService extends IntentService {
             object = new JSONObject(jsonStrPayload);
             processJsonObject(object);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d("ERROR DECODE", e.getMessage());
         }
 
-        Log.d("RECEIVER_DATA : ", messagesNotif);
+        Log.d("PUSHER_RECEIVER", messagesNotif);
 
         buildNotification(intent, messagesNotif);
     }

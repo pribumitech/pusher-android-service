@@ -43,14 +43,6 @@ public class BackgroundService extends Service {
         return null;
     }
 
-    /*@Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        super.onStartCommand(intent, flags, startId);
-        Log.e("tmessages", "onStartCommand");
-        return START_STICKY;
-    }*/
-
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -59,16 +51,7 @@ public class BackgroundService extends Service {
         PusherOdk.getInstance().PusherApp.connect();
         if (PusherOdk.getInstance()
                 .PusherApp.getPrivateChannel("private-test-channel") == null) {
-            Log.d("NULL", "NULLLLLLLLLLLLLLL");
             subsribe();
-        } else {
-
-            if (!PusherOdk.getInstance()
-                    .PusherApp.getPrivateChannel("private-test-channel").isSubscribed()) {
-                Log.d("TIDAKKKKKKKKKKK", "TIDAKKKKKKKKKKK");
-            } else {
-                Log.d("ada", "ada");
-            }
         }
         return START_STICKY;
     }
@@ -111,29 +94,6 @@ public class BackgroundService extends Service {
                         });
 
                         readthread.start();
-
-                       /* handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.d("PUSHER", s + " " + "An event with name " + s2 + " was delivered!!" + " " + s3);
-                            }
-                        }, 1500);
-
-                        readthread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ApplicationLoader.applicationHandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Log.d("PUSHER", s + " " + "An event with name " + s2 + " was delivered!!" + " " + s3);
-                                    }
-                                });
-                                //Gson gson = new Gson();
-                                //Message message = gson.fromJson(data, Message.class);
-                                // Notification(message);
-                            }
-                        });
-                        readthread.start();*/
                     }
                 }, "client-test-event");
     }
