@@ -40,18 +40,19 @@
         </activity>
         <activity android:name=".LoginActivity" />
 
-        <receiver android:name=".NotifBroadcastReceiver">
+        <receiver android:name=".services.NotifBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name=".NotificationExtenderService"
+            android:name=".services.Notifikasi"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name=".BackgroundService"
+            android:name=".services.BackgroundService"
             android:enabled="true"
             android:exported="false" />
 

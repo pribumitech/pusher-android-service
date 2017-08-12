@@ -1,4 +1,4 @@
-package com.pribumitech.pusherapp;
+package com.pribumitech.pusherapp.services;
 
 import android.app.Service;
 import android.content.Intent;
